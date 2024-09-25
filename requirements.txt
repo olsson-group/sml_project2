@@ -2,3 +2,5 @@ torch
 torch_geometric
 numpy
 e3nn
+torch_cluster
+torch_scatter
