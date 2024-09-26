@@ -5,14 +5,14 @@ from torch.utils.data import Subset
 MOLECULES = ["benzene", "malonaldehyde", "ethanol", "toluene"]
 
 
-def get_dataset(molecule):
+def get_dataset(molecule, path="data/MD17"):
     assert molecule in MOLECULES, "Molecule must have CCSD(T) level of theory"
-    return geom.datasets.MD17(root="data/MD17", name=molecule)
+    return geom.datasets.MD17(root=path, name=molecule)
 
 
-def download_all():
+def download_all(path):
     for molecule in MOLECULES:
-        get_dataset(molecule)
+        get_dataset(molecule, path)
 
 
 def split_dataset(dataset, n_train, n_val, seed):
