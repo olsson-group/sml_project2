@@ -4,4 +4,4 @@ numpy
 e3nn
 mdtraj
 matplotlib
-ngl_view
+nglview
