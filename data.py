@@ -14,6 +14,12 @@ def download_all(path):
     for molecule in MOLECULES:
         get_dataset(molecule, path)
 
+def get_mean_energy(dataset):
+    return np.mean([data.energy for data in dataset])
+
+
+
+
 
 def split_dataset(dataset, n_train, n_val, seed):
     np.random.seed(seed)
