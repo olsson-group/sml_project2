@@ -20,12 +20,12 @@ ELEMENTS = {
 }
 
 
-def ngl_view(atoms, traj):
+def get_mdtraj(atoms, traj):
     atoms = atoms.cpu().numpy()
     traj = traj.cpu().numpy()
 
     traj = get_mdtraj(traj, atoms)
-    traj.save("/tmp/traj.pdb")
+    return traj
 
 
 def get_mdtraj(traj, atoms):
