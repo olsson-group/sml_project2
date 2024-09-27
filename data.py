@@ -39,13 +39,3 @@ def split_dataset(dataset, n_train, n_val, seed):
     val_dataset = Subset(dataset, val_idx)
 
     return train_dataset, val_dataset
-
-
-if __name__ == "__main__":
-    for molecule in MOLECULES:
-        print(molecule)
-        dataset = get_dataset(molecule)
-        atomic_energy = get_atomic_energy(dataset)
-
-        print(dataset[0].energy.item())
-        print(atomic_energy)
