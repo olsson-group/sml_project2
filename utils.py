@@ -1,4 +1,5 @@
 import mdtraj as md
+import torch
 
 ELEMENTS = {
     1: md.element.hydrogen,
@@ -20,15 +21,10 @@ ELEMENTS = {
 }
 
 
-def get_mdtraj(atoms, traj):
+def get_mdtraj(traj, atoms):
     atoms = atoms.cpu().numpy()
     traj = traj.cpu().numpy()
 
-    traj = get_mdtraj(traj, atoms)
-    return traj
-
-
-def get_mdtraj(traj, atoms):
     topology = get_topology(atoms)
     traj = traj.reshape(-1, *traj.shape[-2:])
     traj = md.Trajectory(traj, topology)
@@ -46,3 +42,17 @@ def get_topology(atom_numbers):
         topology.add_atom(name, e, residue)
 
     return topology
+
+
+def get_msd(y, y_hat):
+    return ((y - y_hat) ** 2).sum(-1)
+
+
+def get_rmsd(y, y_hat):
+    return torch.sqrt(get_msd(y, y_hat)
+
+
+if __name__ == "__main__":
+    x = torch.randn(9, 3)
+    y = torch.zeros(9, 3)
+    assert torch.allclose(get_msd(x, y), torch.norm(x, dim=-1) ** 2)

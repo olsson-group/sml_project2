@@ -22,12 +22,10 @@ def download_all(path):
         get_dataset(molecule, path)
 
 
-def get_atomic_energy(dataset):
-    atomic_energy = 0
-    for z in dataset[0].z:
-        atomic_energy += ATOMIC_ENERGIES[z.item()]
-    atomic_energy *= 627.509  # Convert from Hartree to kcal/mol
-    return atomic_energy
+def get_ground_state_energy(dataset):
+    energies = [data.energy.item() for data in dataset]
+    ground_state_energy = min(energies)
+    return ground_state_energy * 627.509  # Convert from Hartree to kcal/mol
 
 
 def split_dataset(dataset, n_train, n_val, seed):
