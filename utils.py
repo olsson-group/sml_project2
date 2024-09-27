@@ -49,7 +49,7 @@ def get_msd(y, y_hat):
 
 
 def get_rmsd(y, y_hat):
-    return torch.sqrt(get_msd(y, y_hat)
+    return torch.sqrt(get_msd(y, y_hat))
 
 
 if __name__ == "__main__":
