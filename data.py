@@ -25,7 +25,7 @@ def download_all(path):
 def get_ground_state_energy(dataset):
     energies = [data.energy.item() for data in dataset]
     ground_state_energy = min(energies)
-    return ground_state_energy * 627.509  # Convert from Hartree to kcal/mol
+    return ground_state_energy
 
 
 def split_dataset(dataset, n_train, n_val, seed):
