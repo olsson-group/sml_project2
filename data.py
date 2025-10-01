@@ -14,7 +14,7 @@ ATOMIC_ENERGIES = {
 
 def get_dataset(molecule, path="data/MD17"):
     assert molecule in MOLECULES, "Molecule must have CCSD(T) level of theory"
-    return geom.datasets.MD17(root=path, name=molecule)
+    return geom.datasets.MD17(root=path, name=f"{molecule} CCSD(T)", train=False)
 
 
 def download_all(path):
@@ -28,14 +28,20 @@ def get_ground_state_energy(dataset):
     return ground_state_energy
 
 
-def split_dataset(dataset, n_train, n_val, seed):
+def split_dataset(dataset, n_train, n_val, n_test, seed):
+    assert n_train + n_val + n_test == len(dataset), "Sum of splits must equal dataset length"
+
     np.random.seed(seed)
+    
     idxs = list(range(len(dataset)))
     np.random.shuffle(idxs)
+    
     train_idx = idxs[:n_train]
     val_idx = idxs[n_train : n_train + n_val]
+    test_idx = idxs[n_train + n_val :]
 
     train_dataset = Subset(dataset, train_idx)
     val_dataset = Subset(dataset, val_idx)
+    test_dataset = Subset(dataset, test_idx)
 
-    return train_dataset, val_dataset
+    return train_dataset, val_dataset, test_dataset
