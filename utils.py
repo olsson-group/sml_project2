@@ -45,14 +45,22 @@ def get_topology(atom_numbers):
 
 
 def get_msd(y, y_hat):
-    return ((y - y_hat) ** 2).sum(-1)
+    """
+    Assumes y and y_hat has shape [n_batch, n_atoms, 3]. Returns mean across all dimensions and batch.
+    """
+    return ((y - y_hat) ** 2).mean()
 
 
 def get_rmsd(y, y_hat):
+    """
+    Assumes y and y_hat has shape [n_batch, n_atoms, 3]. Returns mean across all dimensions and batch.
+    """
     return torch.sqrt(get_msd(y, y_hat))
 
 
 if __name__ == "__main__":
-    x = torch.randn(9, 3)
-    y = torch.zeros(9, 3)
-    assert torch.allclose(get_msd(x, y), torch.norm(x, dim=-1) ** 2)
+    x = torch.randn(2, 9, 3)
+    y = torch.zeros(2, 9, 3)
+    
+    print(get_msd(x, y))
+
