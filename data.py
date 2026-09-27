@@ -45,3 +45,18 @@ def split_dataset(dataset, n_train, n_val, n_test, seed):
     test_dataset = Subset(dataset, test_idx)
 
     return train_dataset, val_dataset, test_dataset
+
+
+def subset_dataset(dataset, n_samples, seed):
+    assert n_samples <= len(dataset), "Subset must be smaller or equal to the original dataset."
+    
+    np.random.seed(seed)
+
+    idxs = list(range(len(dataset)))
+    np.random.shuffle(idxs)
+
+    idxs = idxs[:n_samples]
+
+    subset_dataset = Subset(dataset, idxs)
+    return subset_dataset
+
